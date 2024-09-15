@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirect with Processed API Data</title>
+    <title>Display Processed API Data as Image</title>
 </head>
 <body>
+    <img id="processedImage" alt="Processed API Data Image" />
+
     <script>
         // 从指定的 API 获取数据
         fetch('https://v1.jinrishici.com/all.txt')
@@ -14,14 +16,14 @@
                 // 替换特定字符
                 let processedData = data.replace(/，|。/g, ' ');
 
-                // 构建重定向 URL
-                let redirectUrl = 'https://iconce.com/api/v1?type=text&w=390&h=35&value=' + encodeURIComponent(processedData) + 
-                                  '&animate=true&fillType=Linear&primaryColor=%23FC466B&secondaryColor=%233F5EFB' +
-                                  '&angle=45&radialGlare=false&radius=8&strokeSize=0&strokeColor=%23FFFFFF&strokeOpacity=100' +
-                                  '&color=%23FFFFFF&size=20&family=cursive';
+                // 构建图片 URL
+                let imageUrl = 'https://iconce.com/api/v1?type=text&w=390&h=35&value=' + encodeURIComponent(processedData) + 
+                               '&animate=true&fillType=Linear&primaryColor=%23FC466B&secondaryColor=%233F5EFB' +
+                               '&angle=45&radialGlare=false&radius=8&strokeSize=0&strokeColor=%23FFFFFF&strokeOpacity=100' +
+                               '&color=%23FFFFFF&size=20&family=cursive';
 
-                // 重定向至新 URL
-                window.location.href = redirectUrl;
+                // 设置 img 标签的 src 属性来展示图片
+                document.getElementById('processedImage').src = imageUrl;
             })
             .catch(error => console.error('Failed to fetch data:', error));
     </script>
