@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display Processed API Data as Image</title>
+    <title>Display SVG Image</title>
 </head>
 <body>
-    <img id="processedImage" alt="Processed API Data Image" />
+    <div id="svgContainer">Loading...</div>
 
     <script>
         // 从指定的 API 获取数据
@@ -22,8 +22,14 @@
                                '&angle=45&radialGlare=false&radius=8&strokeSize=0&strokeColor=%23FFFFFF&strokeOpacity=100' +
                                '&color=%23FFFFFF&size=20&family=cursive';
 
-                // 设置 img 标签的 src 属性来展示图片
-                document.getElementById('processedImage').src = imageUrl;
+                // 请求 SVG 图片
+                fetch(imageUrl)
+                    .then(response => response.text())
+                    .then(svgData => {
+                        // 将 SVG 数据直接放入页面中的 div 中
+                        document.getElementById('svgContainer').innerHTML = svgData;
+                    })
+                    .catch(error => console.error('Failed to load SVG:', error));
             })
             .catch(error => console.error('Failed to fetch data:', error));
     </script>
